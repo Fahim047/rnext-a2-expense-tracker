@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ addTransaction }) => {
 	const [type, setType] = useState('expense');
 	const [formData, setFormData] = useState({
 		category: '',
@@ -21,6 +21,13 @@ const ExpenseForm = () => {
 
 	const handleSubmit = (formData) => {
 		console.log(formData);
+		const newTransaction = { ...formData, type };
+		addTransaction(newTransaction);
+		setFormData({
+			category: '',
+			amount: '',
+			date: '',
+		});
 	};
 
 	return (
@@ -74,6 +81,7 @@ const ExpenseForm = () => {
 						>
 							{type === 'expense' ? (
 								<>
+									<option>Select a category</option>
 									<option>Education</option>
 									<option>Food</option>
 									<option>Health</option>
@@ -85,6 +93,7 @@ const ExpenseForm = () => {
 								</>
 							) : (
 								<>
+									<option>Select a category</option>
 									<option>Salary</option>
 									<option>Outsourcing</option>
 									<option>Bond</option>
