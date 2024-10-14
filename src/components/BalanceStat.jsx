@@ -1,6 +1,4 @@
-import React from 'react';
-
-const BalanceStat = () => {
+const BalanceStat = ({ totalBalance, totalIncome, totalExpense }) => {
 	return (
 		<div class="bg-white">
 			<div class="mx-auto max-w-7xl">
@@ -8,19 +6,19 @@ const BalanceStat = () => {
 					<div class="bg-[#F9FAFB] flex lg:max-w-xs flex-col px-4 py-4">
 						<dt class="text-base leading-7 text-gray-600">Balance</dt>
 						<dd class="order-first text-xl font-semibold tracking-tight text-gray-700 sm:text-3xl">
-							BDT 20000
+							BDT {totalBalance}
 						</dd>
 					</div>
 					<div class="bg-[#F9FAFB] flex lg:max-w-xs flex-col px-4 py-4">
 						<dt class="text-base leading-7 text-gray-600">Total Income</dt>
 						<dd class="order-first text-xl font-semibold tracking-tight text-gray-700 sm:text-3xl">
-							BDT 20000
+							BDT {totalIncome}
 						</dd>
 					</div>
 					<div class="bg-[#F9FAFB] flex lg:max-w-xs flex-col px-4 py-4">
 						<dt class="text-base leading-7 text-gray-600">Total Expense</dt>
 						<dd class="order-first text-xl font-semibold tracking-tight text-gray-700 sm:text-3xl">
-							BDT 20000
+							BDT {totalExpense}
 						</dd>
 					</div>
 				</dl>
