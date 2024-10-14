@@ -1,7 +1,23 @@
 import PenIcon from './icons/pen';
 import TrashIcon from './icons/trash';
 
-const TransactionItem = ({ category, amount, date }) => {
+const TransactionItem = ({
+	setType,
+	setFormData,
+	type,
+	category,
+	amount,
+	date,
+}) => {
+	const handleClick = () => {
+		console.log(category, amount, date);
+		setType(type);
+		setFormData({
+			category,
+			amount,
+			date,
+		});
+	};
 	return (
 		<div className="flex justify-between items-center py-2 relative group cursor-pointer">
 			<div>
@@ -17,7 +33,12 @@ const TransactionItem = ({ category, amount, date }) => {
 
 				{/* <!-- 3 Dots --> */}
 				<div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
-					<button className="hover:text-teal-600" role="button" title="Edit">
+					<button
+						className="hover:text-teal-600"
+						role="button"
+						title="Edit"
+						onClick={handleClick}
+					>
 						<PenIcon />
 					</button>
 
