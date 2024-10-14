@@ -1,12 +1,7 @@
 import { useState } from 'react';
 
-const ExpenseForm = ({ addTransaction }) => {
+const ExpenseForm = ({ formData, setFormData, addTransaction }) => {
 	const [type, setType] = useState('expense');
-	const [formData, setFormData] = useState({
-		category: '',
-		amount: '',
-		date: '',
-	});
 
 	const handleChange = (e) => {
 		const name = e.target.name;

@@ -1,21 +1,26 @@
+import ExpenseIcon from './icons/expense';
 import FilterIcon from './icons/filter';
 import IncomeIcon from './icons/income';
 import SortIcon from './icons/sort';
 import TransactionItem from './TransactionItem';
-const IncomeStat = ({ transactions }) => {
+const TransactionCard = ({ type, transactions }) => {
 	return (
 		<div className="border rounded-md relative">
 			{/* <!-- Header --> */}
 			<div className="flex items-center justify-between gap-2 bg-[#F9FAFB] py-4 px-4 rounded-md">
 				<div className="flex items-center gap-2">
 					{/* <!-- Icon --> */}
-					<div className="h-10 w-10 bg-teal-600 text-white rounded-md text-center object-center place-content-center text-base">
-						<IncomeIcon />
+					<div
+						className={`h-10 w-10 text-white rounded-md text-center object-center place-content-center text-base ${
+							type === 'income' ? 'bg-teal-600' : 'bg-pink-600'
+						}`}
+					>
+						{type === 'income' ? <IncomeIcon /> : <ExpenseIcon />}
 					</div>
 					{/* <!-- Text --> */}
 					<div>
-						<h3 className="text-xl font-semibold leading-7 text-gray-800">
-							Income
+						<h3 className="capitalize text-xl font-semibold leading-7 text-gray-800">
+							{type}
 						</h3>
 					</div>
 				</div>
@@ -141,4 +146,4 @@ const IncomeStat = ({ transactions }) => {
 	);
 };
 
-export default IncomeStat;
+export default TransactionCard;
