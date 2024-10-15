@@ -62,6 +62,7 @@ const ExpenseBoard = () => {
 							setType={setType}
 							setFormData={setFormData}
 							transactions={incomeTransactions}
+							setTransactions={setTransactions}
 							setMode={setMode}
 						/>
 						{/* <!-- Expense --> */}
@@ -70,6 +71,7 @@ const ExpenseBoard = () => {
 							setType={setType}
 							setFormData={setFormData}
 							transactions={expenseTransactions}
+							setTransactions={setTransactions}
 							setMode={setMode}
 						/>
 					</div>

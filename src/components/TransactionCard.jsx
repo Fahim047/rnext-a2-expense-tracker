@@ -8,6 +8,7 @@ const TransactionCard = ({
 	setType,
 	setFormData,
 	transactions,
+	setTransactions,
 	setMode,
 }) => {
 	return (
@@ -145,6 +146,7 @@ const TransactionCard = ({
 						setType={setType}
 						setFormData={setFormData}
 						transaction={transaction}
+						setTransactions={setTransactions}
 						setMode={setMode}
 					/>
 				))}
