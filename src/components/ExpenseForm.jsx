@@ -4,7 +4,6 @@ const ExpenseForm = ({
 	formData,
 	setFormData,
 	setTransactions,
-	addTransaction,
 	mode,
 	setMode,
 }) => {
@@ -23,7 +22,10 @@ const ExpenseForm = ({
 		// console.log(formData);
 		if (mode === 'add') {
 			const newTransaction = { ...formData, type, id: crypto.randomUUID() };
-			addTransaction(newTransaction);
+			setTransactions((prevTransactions) => [
+				...prevTransactions,
+				newTransaction,
+			]);
 		} else {
 			setTransactions((prevTransactions) =>
 				prevTransactions.map((trx) =>

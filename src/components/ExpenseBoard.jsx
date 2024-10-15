@@ -33,13 +33,6 @@ const ExpenseBoard = () => {
 	const incomeTransactions = transactions.filter((t) => t.type === 'income');
 	const expenseTransactions = transactions.filter((t) => t.type === 'expense');
 
-	const addTransaction = (newTransaction) => {
-		setTransactions((prevTransactions) => [
-			...prevTransactions,
-			newTransaction,
-		]);
-		console.log(newTransaction);
-	};
 	return (
 		<main className="relative mx-auto mt-10 w-full max-w-7xl">
 			<section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -50,7 +43,6 @@ const ExpenseBoard = () => {
 					formData={formData}
 					setFormData={setFormData}
 					setTransactions={setTransactions}
-					addTransaction={addTransaction}
 					mode={mode}
 					setMode={setMode}
 				/>
