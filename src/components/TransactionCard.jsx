@@ -3,7 +3,13 @@ import FilterIcon from './icons/filter';
 import IncomeIcon from './icons/income';
 import SortIcon from './icons/sort';
 import TransactionItem from './TransactionItem';
-const TransactionCard = ({ type, setType, setFormData, transactions }) => {
+const TransactionCard = ({
+	type,
+	setType,
+	setFormData,
+	transactions,
+	setMode,
+}) => {
 	return (
 		<div className="border rounded-md relative">
 			{/* <!-- Header --> */}
@@ -133,15 +139,13 @@ const TransactionCard = ({ type, setType, setFormData, transactions }) => {
 
 			<div className="p-4 divide-y">
 				{/* <!-- Income Transactions --> */}
-				{transactions.map((trx, index) => (
+				{transactions.map((transaction) => (
 					<TransactionItem
-						key={index}
+						key={transaction.id}
 						setType={setType}
 						setFormData={setFormData}
-						type={trx.type}
-						category={trx.category}
-						amount={trx.amount}
-						date={trx.date}
+						transaction={transaction}
+						setMode={setMode}
 					/>
 				))}
 			</div>

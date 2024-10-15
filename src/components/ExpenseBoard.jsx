@@ -4,9 +4,21 @@ import ExpenseForm from './ExpenseForm';
 import TransactionCard from './TransactionCard';
 
 const defaultTransactions = [
-	{ type: 'income', amount: 1500, category: 'Salary', date: '2024-10-01' },
-	{ type: 'expense', amount: 200, category: 'Food', date: '2024-10-02' },
-	{ type: 'expense', amount: 100, category: 'Transport', date: '2024-10-03' },
+	{
+		id: 1,
+		type: 'income',
+		amount: 1500,
+		category: 'Salary',
+		date: '2024-10-01',
+	},
+	{ id: 2, type: 'expense', amount: 200, category: 'Food', date: '2024-10-02' },
+	{
+		id: 3,
+		type: 'expense',
+		amount: 100,
+		category: 'Transport',
+		date: '2024-10-03',
+	},
 ];
 const ExpenseBoard = () => {
 	const [type, setType] = useState('expense');
@@ -16,6 +28,7 @@ const ExpenseBoard = () => {
 		amount: '',
 		date: '',
 	});
+	const [mode, setMode] = useState('add');
 
 	const incomeTransactions = transactions.filter((t) => t.type === 'income');
 	const expenseTransactions = transactions.filter((t) => t.type === 'expense');
@@ -36,7 +49,10 @@ const ExpenseBoard = () => {
 					setType={setType}
 					formData={formData}
 					setFormData={setFormData}
+					setTransactions={setTransactions}
 					addTransaction={addTransaction}
+					mode={mode}
+					setMode={setMode}
 				/>
 				{/* <!-- Right Column --> */}
 				<div className="lg:col-span-2">
@@ -54,6 +70,7 @@ const ExpenseBoard = () => {
 							setType={setType}
 							setFormData={setFormData}
 							transactions={incomeTransactions}
+							setMode={setMode}
 						/>
 						{/* <!-- Expense --> */}
 						<TransactionCard
@@ -61,6 +78,7 @@ const ExpenseBoard = () => {
 							setType={setType}
 							setFormData={setFormData}
 							transactions={expenseTransactions}
+							setMode={setMode}
 						/>
 					</div>
 				</div>

@@ -1,22 +1,20 @@
 import PenIcon from './icons/pen';
 import TrashIcon from './icons/trash';
 
-const TransactionItem = ({
-	setType,
-	setFormData,
-	type,
-	category,
-	amount,
-	date,
-}) => {
-	const handleClick = () => {
-		console.log(category, amount, date);
+const TransactionItem = ({ setType, setFormData, transaction, setMode }) => {
+	const { category, amount, date, type, id } = transaction;
+	const handleEdit = () => {
 		setType(type);
+		setMode('edit');
 		setFormData({
+			id,
 			category,
 			amount,
 			date,
 		});
+	};
+	const handleDelete = () => {
+		deleteTransaction(id);
 	};
 	return (
 		<div className="flex justify-between items-center py-2 relative group cursor-pointer">
@@ -37,12 +35,17 @@ const TransactionItem = ({
 						className="hover:text-teal-600"
 						role="button"
 						title="Edit"
-						onClick={handleClick}
+						onClick={handleEdit}
 					>
 						<PenIcon />
 					</button>
 
-					<button className="hover:text-red-600" role="button" title="Delete">
+					<button
+						className="hover:text-red-600"
+						role="button"
+						title="Delete"
+						onClick={handleDelete}
+					>
 						<TrashIcon />
 					</button>
 				</div>

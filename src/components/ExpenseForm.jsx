@@ -3,7 +3,10 @@ const ExpenseForm = ({
 	setType,
 	formData,
 	setFormData,
+	setTransactions,
 	addTransaction,
+	mode,
+	setMode,
 }) => {
 	const handleChange = (e) => {
 		const name = e.target.name;
@@ -18,8 +21,17 @@ const ExpenseForm = ({
 
 	const handleSubmit = (formData) => {
 		// console.log(formData);
-		const newTransaction = { ...formData, type };
-		addTransaction(newTransaction);
+		if (mode === 'add') {
+			const newTransaction = { ...formData, type, id: crypto.randomUUID() };
+			addTransaction(newTransaction);
+		} else {
+			setTransactions((prevTransactions) =>
+				prevTransactions.map((trx) =>
+					trx.id === formData.id ? { ...formData, type } : trx
+				)
+			);
+			setMode('add');
+		}
 		setFormData({
 			category: '',
 			amount: '',
@@ -153,7 +165,7 @@ const ExpenseForm = ({
 						handleSubmit(formData);
 					}}
 				>
-					Save
+					{mode === 'add' ? 'Save' : 'Update'}
 				</button>
 			</form>
 		</div>
