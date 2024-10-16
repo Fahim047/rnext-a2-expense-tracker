@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import ExpenseIcon from './icons/expense';
 import FilterIcon from './icons/filter';
 import IncomeIcon from './icons/income';
@@ -10,7 +11,14 @@ const TransactionCard = ({
 	transactions,
 	setTransactions,
 	setMode,
+	setSortOrder,
 }) => {
+	const [showSortMenu, setShowSortMenu] = useState(false);
+	const [showFilterMenu, setShowFilterMenu] = useState(false);
+	const handleSort = (sortBy) => {
+		setSortOrder(sortBy);
+		setShowSortMenu(false);
+	};
 	return (
 		<div className="border rounded-md relative">
 			{/* <!-- Header --> */}
@@ -41,39 +49,45 @@ const TransactionCard = ({
 								id="menu-button"
 								aria-expanded="true"
 								aria-haspopup="true"
+								onClick={() => {
+									setShowSortMenu(!showSortMenu);
+									setShowFilterMenu(false);
+								}}
 							>
 								<SortIcon />
 							</button>
 						</div>
 
-						<div
-							className="hidden absolute z-10 mt-2 left-5 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-							role="menu"
-							aria-orientation="vertical"
-							aria-labelledby="menu-button"
-							tabIndex="-1"
-						>
-							<div className="py-1" role="none">
-								<a
-									href="#"
-									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all"
-									role="menuitem"
-									tabindex="-1"
-									id="menu-item-0"
-								>
-									Low to High
-								</a>
-								<a
-									href="#"
-									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all"
-									role="menuitem"
-									tabIndex="-1"
-									id="menu-item-0"
-								>
-									High to Low
-								</a>
+						{showSortMenu && (
+							<div
+								className="absolute z-10 mt-2 right-0 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+								role="menu"
+								aria-orientation="vertical"
+								aria-labelledby="menu-button"
+								tabIndex="-1"
+							>
+								<ul className="py-1" role="none">
+									<li
+										className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all cursor-pointer"
+										role="menuitem"
+										tabindex="-1"
+										id="menu-item-0"
+										onClick={() => handleSort('asc')}
+									>
+										Low to High
+									</li>
+									<li
+										className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-all cursor-pointer"
+										role="menuitem"
+										tabIndex="-1"
+										id="menu-item-0"
+										onClick={() => handleSort('desc')}
+									>
+										High to Low
+									</li>
+								</ul>
 							</div>
-						</div>
+						)}
 					</div>
 
 					{/* <!-- Filtering --> */}
@@ -85,55 +99,61 @@ const TransactionCard = ({
 								id="filter-button"
 								aria-expanded="true"
 								aria-haspopup="true"
+								onClick={() => {
+									setShowFilterMenu(!showFilterMenu);
+									setShowSortMenu(false);
+								}}
 							>
 								<FilterIcon />
 							</button>
 						</div>
 
-						<div
-							className="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-							role="menu"
-							aria-orientation="vertical"
-							aria-labelledby="filter-button"
-							tabIndex="-1"
-							id="filter-dropdown"
-						>
-							<div className="py-1" role="none">
-								<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-									<input
-										type="checkbox"
-										className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-										id="filter-option-1"
-									/>
-									<span className="ml-2">Salary</span>
-								</label>
-								<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-									<input
-										type="checkbox"
-										className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-										id="filter-option-2"
-									/>
-									<span className="ml-2">Outsourcing</span>
-								</label>
-								<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-									<input
-										type="checkbox"
-										className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-										id="filter-option-3"
-									/>
-									<span className="ml-2">Bond</span>
-								</label>
+						{showFilterMenu && (
+							<div
+								className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+								role="menu"
+								aria-orientation="vertical"
+								aria-labelledby="filter-button"
+								tabIndex="-1"
+								id="filter-dropdown"
+							>
+								<div className="py-1" role="none">
+									<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
+										<input
+											type="checkbox"
+											className="form-checkbox h-4 w-4 rounded-md text-gray-600"
+											id="filter-option-1"
+										/>
+										<span className="ml-2">Salary</span>
+									</label>
+									<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
+										<input
+											type="checkbox"
+											className="form-checkbox h-4 w-4 rounded-md text-gray-600"
+											id="filter-option-2"
+										/>
+										<span className="ml-2">Outsourcing</span>
+									</label>
+									<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
+										<input
+											type="checkbox"
+											className="form-checkbox h-4 w-4 rounded-md text-gray-600"
+											id="filter-option-3"
+										/>
+										<span className="ml-2">Bond</span>
+									</label>
 
-								<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-									<input
-										type="checkbox"
-										className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-										id="filter-option-3"
-									/>
-									<span className="ml-2">Dividend</span>
-								</label>
+									<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
+										<input
+											type="checkbox"
+											className="form-checkbox h-4 w-4 rounded-md text-gray-600"
+											id="filter-option-3"
+										/>
+										<span className="ml-2">Dividend</span>
+									</label>
+								</div>
 							</div>
-						</div>
+						)}
 					</div>
 				</div>
 			</div>

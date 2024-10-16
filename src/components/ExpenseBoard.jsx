@@ -33,6 +33,16 @@ const ExpenseBoard = () => {
 	const incomeTransactions = transactions.filter((t) => t.type === 'income');
 	const expenseTransactions = transactions.filter((t) => t.type === 'expense');
 
+	const totalIncome = incomeTransactions.reduce(
+		(sum, transaction) => sum + Number(transaction.amount),
+		0
+	);
+	const totalExpense = expenseTransactions.reduce(
+		(sum, transaction) => sum + Number(transaction.amount),
+		0
+	);
+	const totalBalance = totalIncome - totalExpense;
+
 	return (
 		<main className="relative mx-auto mt-10 w-full max-w-7xl">
 			<section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -50,9 +60,9 @@ const ExpenseBoard = () => {
 				<div className="lg:col-span-2">
 					{/* <!-- Total Balance Stat--> */}
 					<BalanceStat
-						totalBalance="20000"
-						totalExpense="20000"
-						totalIncome="20000"
+						totalBalance={totalBalance}
+						totalExpense={totalExpense}
+						totalIncome={totalIncome}
 					/>
 
 					<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
