@@ -24,7 +24,7 @@ const ExpenseBoard = () => {
 	const [type, setType] = useState('expense');
 	const [transactions, setTransactions] = useState(defaultTransactions);
 	const [formData, setFormData] = useState({
-		category: '',
+		category: type === 'expense' ? 'Education' : 'Salary',
 		amount: '',
 		date: '',
 	});
@@ -64,7 +64,6 @@ const ExpenseBoard = () => {
 						totalExpense={totalExpense}
 						totalIncome={totalIncome}
 					/>
-
 					<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
 						{/* <!-- Income --> */}
 						<TransactionCard

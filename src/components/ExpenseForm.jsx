@@ -7,6 +7,13 @@ const ExpenseForm = ({
 	mode,
 	setMode,
 }) => {
+	const handleChangeType = (t) => {
+		setType(t);
+		setFormData({
+			...formData,
+			category: t === 'expense' ? 'Education' : 'Salary',
+		});
+	};
 	const handleChange = (e) => {
 		const name = e.target.name;
 		let value = e.target.value;
@@ -39,7 +46,7 @@ const ExpenseForm = ({
 			setMode('add');
 		}
 		setFormData({
-			category: '',
+			category: type === 'expense' ? 'Education' : 'Salary',
 			amount: '',
 			date: '',
 		});
@@ -60,7 +67,7 @@ const ExpenseForm = ({
 								? 'bg-teal-500 text-white'
 								: 'bg-white text-slate-900 hover:bg-gray-100'
 						} rounded-l-md border`}
-						onClick={() => setType('expense')}
+						onClick={() => handleChangeType('expense')}
 					>
 						Expense
 					</button>
@@ -71,7 +78,7 @@ const ExpenseForm = ({
 								? 'bg-teal-500 text-white'
 								: 'bg-white text-slate-900 hover:bg-gray-100'
 						} rounded-r-md border`}
-						onClick={() => setType('income')}
+						onClick={() => handleChangeType('income')}
 					>
 						Income
 					</button>
