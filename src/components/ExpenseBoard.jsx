@@ -30,8 +30,8 @@ const ExpenseBoard = () => {
 	});
 	const [mode, setMode] = useState('add');
 
-	const incomeTransactions = transactions.filter((t) => t.type === 'income');
-	const expenseTransactions = transactions.filter((t) => t.type === 'expense');
+	let incomeTransactions = transactions.filter((t) => t.type === 'income');
+	let expenseTransactions = transactions.filter((t) => t.type === 'expense');
 
 	const totalIncome = incomeTransactions.reduce(
 		(sum, transaction) => sum + Number(transaction.amount),

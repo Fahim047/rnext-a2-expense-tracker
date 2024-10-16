@@ -11,14 +11,23 @@ const TransactionCard = ({
 	transactions,
 	setTransactions,
 	setMode,
-	setSortOrder,
 }) => {
 	const [showSortMenu, setShowSortMenu] = useState(false);
 	const [showFilterMenu, setShowFilterMenu] = useState(false);
+	const [sortOrder, setSortOrder] = useState('');
 	const handleSort = (sortBy) => {
 		setSortOrder(sortBy);
 		setShowSortMenu(false);
 	};
+	const sortedTransactions = [...transactions].sort((a, b) => {
+		if (sortOrder === 'asc') {
+			return a.amount - b.amount;
+		} else if (sortOrder === 'desc') {
+			return b.amount - a.amount;
+		}
+		return 0;
+	});
+
 	return (
 		<div className="border rounded-md relative">
 			{/* <!-- Header --> */}
@@ -160,7 +169,7 @@ const TransactionCard = ({
 
 			<div className="p-4 divide-y">
 				{/* <!-- Income Transactions --> */}
-				{transactions.map((transaction) => (
+				{sortedTransactions.map((transaction) => (
 					<TransactionItem
 						key={transaction.id}
 						setType={setType}
