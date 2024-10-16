@@ -20,6 +20,10 @@ const ExpenseForm = ({
 
 	const handleSubmit = (formData) => {
 		// console.log(formData);
+		if (!formData.category || !formData.amount || !formData.date) {
+			alert('Please fill all the fields');
+			return;
+		}
 		if (mode === 'add') {
 			const newTransaction = { ...formData, type, id: crypto.randomUUID() };
 			setTransactions((prevTransactions) => [
@@ -88,11 +92,11 @@ const ExpenseForm = ({
 							value={formData.category}
 							autoComplete="category-name"
 							onChange={handleChange}
+							required
 							className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
 						>
 							{type === 'expense' ? (
 								<>
-									<option>Select a category</option>
 									<option>Education</option>
 									<option>Food</option>
 									<option>Health</option>
@@ -104,7 +108,6 @@ const ExpenseForm = ({
 								</>
 							) : (
 								<>
-									<option>Select a category</option>
 									<option>Salary</option>
 									<option>Outsourcing</option>
 									<option>Bond</option>
@@ -132,6 +135,7 @@ const ExpenseForm = ({
 							autoComplete="off"
 							placeholder="Enter amount"
 							onChange={handleChange}
+							required
 							className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
 						/>
 					</div>
