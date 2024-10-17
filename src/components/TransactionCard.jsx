@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { expenseCategories, incomeCategories } from '../data';
 import ExpenseIcon from './icons/expense';
 import FilterIcon from './icons/filter';
 import IncomeIcon from './icons/income';
 import SortIcon from './icons/sort';
+import SelectInput from './SelectInput';
 import TransactionItem from './TransactionItem';
 const TransactionCard = ({
 	type,
@@ -15,11 +17,28 @@ const TransactionCard = ({
 	const [showSortMenu, setShowSortMenu] = useState(false);
 	const [showFilterMenu, setShowFilterMenu] = useState(false);
 	const [sortOrder, setSortOrder] = useState('');
+	const [selectedFilters, setSelectedFilters] = useState([]);
+
+	const toggleFilter = (filter) => {
+		setSelectedFilters((prevFilters) =>
+			prevFilters.includes(filter)
+				? prevFilters.filter((item) => item !== filter)
+				: [...prevFilters, filter]
+		);
+	};
+
+	const filteredTransactions = transactions.filter((transaction) => {
+		if (selectedFilters.length === 0) {
+			return true;
+		}
+		return selectedFilters.includes(transaction.category);
+	});
+	console.log(selectedFilters);
 	const handleSort = (sortBy) => {
 		setSortOrder(sortBy);
 		setShowSortMenu(false);
 	};
-	const sortedTransactions = [...transactions].sort((a, b) => {
+	const sortedTransactions = [...filteredTransactions].sort((a, b) => {
 		if (sortOrder === 'asc') {
 			return a.amount - b.amount;
 		} else if (sortOrder === 'desc') {
@@ -126,41 +145,27 @@ const TransactionCard = ({
 								tabIndex="-1"
 								id="filter-dropdown"
 							>
-								<div className="py-1" role="none">
-									<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-										<input
-											type="checkbox"
-											className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-											id="filter-option-1"
-										/>
-										<span className="ml-2">Salary</span>
-									</label>
-									<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-										<input
-											type="checkbox"
-											className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-											id="filter-option-2"
-										/>
-										<span className="ml-2">Outsourcing</span>
-									</label>
-									<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-										<input
-											type="checkbox"
-											className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-											id="filter-option-3"
-										/>
-										<span className="ml-2">Bond</span>
-									</label>
-
-									<label className="inline-flex items-center px-4 py-2 text-sm text-gray-700">
-										<input
-											type="checkbox"
-											className="form-checkbox h-4 w-4 rounded-md text-gray-600"
-											id="filter-option-3"
-										/>
-										<span className="ml-2">Dividend</span>
-									</label>
-								</div>
+								{type === 'income' ? (
+									<div className="py-1" role="none">
+										{incomeCategories.map((category) => (
+											<SelectInput
+												key={category}
+												toggleFilter={toggleFilter}
+												name={category}
+											/>
+										))}
+									</div>
+								) : (
+									<div className="py-1" role="none">
+										{expenseCategories.map((category) => (
+											<SelectInput
+												key={category}
+												toggleFilter={toggleFilter}
+												name={category}
+											/>
+										))}
+									</div>
+								)}
 							</div>
 						)}
 					</div>
