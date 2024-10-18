@@ -33,7 +33,6 @@ const TransactionCard = ({
 		}
 		return selectedFilters.includes(transaction.category);
 	});
-	console.log(selectedFilters);
 	const handleSort = (sortBy) => {
 		setSortOrder(sortBy);
 		setShowSortMenu(false);
@@ -173,7 +172,7 @@ const TransactionCard = ({
 			</div>
 
 			<div className="p-4 divide-y">
-				{/* <!-- Income Transactions --> */}
+				{/* <!-- Income Transactions sorted and filtered --> */}
 				{sortedTransactions.map((transaction) => (
 					<TransactionItem
 						key={transaction.id}
